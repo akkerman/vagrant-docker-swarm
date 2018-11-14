@@ -1,0 +1,15 @@
+---
+# file: roles/common/tasks/locale.yml
+
+- name: check if locale needs to be generated
+  shell: "[ -e ~/.locale_generated ] && echo 'Found' || echo ''"
+  register: locale_generated
+  changed_when: False
+
+- name: generate locale
+  command: locale-gen en_US en_US.UTF-8 nl_NL nl_NL.UTF-8
+  when: (not locale_generated.stdout)
+
+- name: set locale generated flag
+  copy: src=locale_generated dest=~/.locale_generated
+  when: (not locale_generated.stdout)

@@ -1,0 +1,9 @@
+---
+# file: roles/common/tasks/main.yml
+
+- name: add bash_profile
+  copy: src=bash_profile dest=~/.bash_profile
+
+- name: generate locale
+  include: locale.yml
+

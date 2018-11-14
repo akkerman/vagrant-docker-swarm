@@ -1,0 +1,42 @@
+---
+# file: roles/docker/tasks/docker-daemon.yml
+- name: copy daemon config
+  copy:
+    src: daemon.json
+    dest: /etc/docker
+    mode: 0644
+  notify:
+    - 'restart docker'
+
+- name: copy root certificate
+  copy:
+    src: ca.pem
+    dest: /etc/docker
+    mode: 0644
+  notify:
+    - 'restart docker'
+
+- name: copy server certificate
+  copy:
+    src: server-crt.pem
+    dest: /etc/docker
+    mode: 0400
+  notify:
+    - 'restart docker'
+
+- name: copy server key
+  copy:
+    src: server-key.pem
+    dest: /etc/docker
+    mode: 0400
+  notify:
+    - 'restart docker'
+
+- name: copy override config
+  copy:
+    src: override.conf
+    dest: /etc/systemd/system/docker.service.d/
+    mode: 0444
+  notify:
+    - 'restart docker'
+

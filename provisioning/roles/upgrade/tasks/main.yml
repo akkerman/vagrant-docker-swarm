@@ -1,0 +1,11 @@
+---
+# file: roles/upgrade/tasks/main.yml
+- name: Add aptitude
+  apt: name=aptitude state=present
+
+- name: Upgrade packages
+  apt: upgrade=safe update_cache=yes cache_valid_time=600
+
+- name: Autoremove unused packages
+  apt:
+    autoremove: yes

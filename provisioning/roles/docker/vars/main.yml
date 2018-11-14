@@ -1,0 +1,5 @@
+---
+# file: roles/docker/vars/main.yml
+
+cluster_id: "dcbc3a63d983c65b6d7fe2bce5729f1c"
+

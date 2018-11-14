@@ -1,0 +1,14 @@
+---
+# file: roles/docker/tasks/main.yml
+
+- name: install docker
+  include: docker.yml
+
+- name: change authorization
+  include: authorization.yml
+
+# - name: add monitoring
+#   include: monitoring.yml
+
+- name: expose docker daemon
+  include: docker-daemon.yml

@@ -1,0 +1,10 @@
+---
+- name: Main
+  hosts:
+    - managers
+    - workers
+  become: yes
+  roles:
+    # - upgrade
+    - common
+    - docker

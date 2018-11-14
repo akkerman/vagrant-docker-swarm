@@ -1,0 +1,14 @@
+---
+# file: roles/docker/tasks/monitoring.yml
+
+- name: install ctop
+  get_url:
+    url: https://github.com/bcicen/ctop/releases/download/v0.7.1/ctop-0.7.1-linux-amd64
+    dest: /usr/local/bin/ctop
+    mode: 0755
+
+- name: install pip
+  apt: name=python3-pip update_cache=yes cache_valid_time=600
+
+- name: install docker pyton module
+  pip: name=docker version=2.0.1

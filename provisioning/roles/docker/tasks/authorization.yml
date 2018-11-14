@@ -1,0 +1,11 @@
+---
+# file: roles/docker/tasks/authorization.yml
+
+- name: add docker group
+  group: name=docker state=present
+
+- name: add docker group to vagrant user
+  user: name=vagrant groups=docker append=yes
+
+- name: add docker group to ubuntu user
+  user: name=ubuntu groups=docker append=yes

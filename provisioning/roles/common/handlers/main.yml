@@ -1,0 +1,17 @@
+---
+# file: roles/docker/handlers/main.yml
+
+- name: restart server
+  command: sleep 5 && shutdown -r now "Reboot triggered by Ansible"
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: wait for restart
+  local_action:
+    module: wait_for
+      host={{ ansible_ssh_host }}
+      port={{ ansible_ssh_port }}
+      delay=15
+      timeout=300
+  become: false
