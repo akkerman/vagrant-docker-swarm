@@ -16,9 +16,9 @@ Vagrant.configure(2) do |config|
 
   (0..N).each do |id|
     if id == 0
-      hostname = "manager"
+      hostname = "manager-0"
     else
-      hostname = "worker#{id}"
+      hostname = "worker-#{id}"
       workers.push(hostname)
     end
 
@@ -27,17 +27,16 @@ Vagrant.configure(2) do |config|
       node.vm.network "private_network", ip: "192.168.20.#{120+id}"
 
 
-      node.vm.provision "main", type: "ansible_local" do |ansible|
-        ansible.compatibility_mode = "2.0"
-        ansible.limit = hostname
-        ansible.extra_vars = {
-          ansible_python_interpreter: "/usr/bin/python3"
-        }
-        ansible.playbook = "provisioning/playbook.yml"
-        ansible.groups = {
-          "managers" => ["manager"],
-          "workers" => workers,
-        }
+      if id == N
+        node.vm.provision "main", type: "ansible" do |ansible|
+          ansible.compatibility_mode = "2.0"
+          ansible.limit = "all"
+          ansible.playbook = "provisioning/playbook.yml"
+          ansible.groups = {
+            "managers" => ["manager-0"],
+            "workers" => workers,
+          }
+        end
       end
     end
   end
