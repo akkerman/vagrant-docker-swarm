@@ -36,6 +36,7 @@ Vagrant.configure(2) do |config|
             "managers" => ["manager-0"],
             "workers" => workers,
           }
+          # ansible.tags="swarm,portainer"
         end
       end
     end
