@@ -12,3 +12,6 @@
 
 - name: expose docker daemon
   include: docker-daemon.yml
+
+- name: setup swarm
+  include: swarm.yml
