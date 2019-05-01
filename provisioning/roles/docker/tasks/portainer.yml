@@ -1,0 +1,24 @@
+---
+# file: roles/docker/tasks/portainer.yml
+
+- name: copy portainer-agent-stack.yml
+  copy:
+    src: portainer-agent-stack.yml
+    dest: /home/vagrant
+    mode: 0644
+  when: inventory_hostname == 'manager-0'
+  register: portainerstack
+
+- name: check swarm mode status
+  command: 'docker info'
+  register: 'docker_info'
+  changed_when: false
+  check_mode: no
+  when: inventory_hostname == 'manager-0'
+
+- name: deploy portainer stack
+  command: 'docker stack deploy -c /home/vagrant/portainer-agent-stack.yml portainer'
+  when: >
+    inventory_hostname == 'manager-0' and
+    'Swarm: active' in docker_info.stdout and
+    portainerstack.changed

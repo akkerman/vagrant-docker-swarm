@@ -28,3 +28,5 @@ vagrant up
 eval $(./docker-client/activate env vm)
 docker node ls
 ```
+
+After succesful intallation goto [http://swarm.viewsource.nl:9000](http://swarm.viewsource.nl:9000) to view the [portainer](https://www.portainer.io/) dashboard.
