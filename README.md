@@ -6,26 +6,25 @@
 - has a script to switch your environment to the remote docker deamon (no need to ssh into the machines)
 
 
-steps:
+## Prerequisites 
 
-    vagrant up
+The following software needs to be installed on the host machine.
 
-    vagrant ssh manager
-    docker swarm init --advertise-addr 192.168.20.120
-    # copy output
-    exit
+| software   | tested version |
+| ---        | ---            |
+| Virtualbox | v6.0.6         |
+| Vagrant    | 2.2.4          |
+| Ansible    | 2.7.10         |
 
-    vagrant ssh worker1
-    # paste
-    vagrant swarm join ...
-    exit
+Add the following line to hosts file
 
-    vagrant ssh worker2
-    # paste
-    vagrant swarm join ...
-    exit
+`192.168.20.120 swarm.viewsource.nl`
 
+## Installation
 
+```sh
+vagrant up
 
-    eval $(./docker-client/activate env vm)
-    docker node ls
+eval $(./docker-client/activate env vm)
+docker node ls
+```
