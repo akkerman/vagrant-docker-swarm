@@ -1,10 +1,20 @@
 ---
 # file: roles/docker/tasks/docker.yml
+#
+#
+
+- name: pin docker version
+  template:
+    src: "etc/apt/preferences.d/docker-ce.pref.j2"
+    dest: "/etc/apt/preferences.d/docker-ce.pref"
+    owner: "root"
+    group: "root"
+    mode: "0644"
 
 - name: add apt key
   apt_key:
-    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-    url: https://download.docker.com/linux/ubuntu/gpg
+    id: "{{ docker_apt_key_id }}"
+    url: "{{ docker_apt_key_url }}"
 
 - name: add docker repository
   apt_repository:
@@ -13,7 +23,7 @@
 
 - name: install docker
   apt:
-    name: docker-ce=18.06.1~ce~3-0~ubuntu
+    name: docker-ce
     force: yes
     update_cache: yes
     cache_valid_time: 600
