@@ -5,6 +5,6 @@
     - workers
   become: yes
   roles:
-    # - upgrade
+    - upgrade
     - common
     - docker
