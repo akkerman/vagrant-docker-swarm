@@ -1,5 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby shiftwidth=2:
+
 Vagrant.configure(2) do |config|
   config.vm.box = "bento/ubuntu-18.04"
 
@@ -8,6 +9,7 @@ Vagrant.configure(2) do |config|
     vbox.cpus = 2
     vbox.customize ["modifyvm", :id, "--ioapic", "on"]
     vbox.customize ["modifyvm", :id, "--groups", "/docker-swarm"]
+    vbox.linked_clone = true
   end
 
   N = 2
