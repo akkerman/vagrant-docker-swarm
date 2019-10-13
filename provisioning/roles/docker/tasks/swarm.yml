@@ -10,7 +10,7 @@
 
 - name: initialize swarm on manager-0
   tags: swarm
-  command: 'docker swarm init --advertise-addr 192.168.20.120'
+  command: 'docker swarm init --advertise-addr 192.168.4.10'
   when: >
     'Swarm: inactive' in docker_info.stdout and
     inventory_hostname == 'manager-0'
@@ -36,7 +36,7 @@
   command: >
     docker swarm join
     --token {{ docker_swarm_worker_token.stdout }}
-    192.168.20.120
+    192.168.4.10
   when: >
     inventory_hostname != 'manager-0' and
     'Swarm: active' not in docker_info.stdout and
