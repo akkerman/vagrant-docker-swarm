@@ -17,25 +17,25 @@
 
 - name: capture join token
   tags: swarm
-  command: 'docker swarm join-token -q worker'
+  command: 'docker swarm join-token -q manager'
   changed_when: false
-  register: 'docker_swarm_worker_token'
+  register: 'docker_swarm_manager_token'
   when: >
     inventory_hostname == 'manager-0'
 
 - name: copy swarm token from manager-0 to current worker
   tags: swarm
   set_fact:
-    docker_swarm_worker_token: "{{ hostvars['manager-0']['docker_swarm_worker_token'] }}"
+    docker_swarm_manager_token: "{{ hostvars['manager-0']['docker_swarm_manager_token'] }}"
   changed_when: false
   when: >
         inventory_hostname != 'manager-0'
 
-- name: joining workers to cluster
+- name: joining workers to cluster as manager
   tags: swarm
   command: >
     docker swarm join
-    --token {{ docker_swarm_worker_token.stdout }}
+    --token {{ docker_swarm_manager_token.stdout }}
     192.168.20.120
   when: >
     inventory_hostname != 'manager-0' and
