@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
   config.vm.box = "bento/ubuntu-18.04"
 
   config.vm.provider "virtualbox" do |vbox|
-    vbox.memory = 2048
+    vbox.memory = 4000
     vbox.cpus = 2
     vbox.customize ["modifyvm", :id, "--ioapic", "on"]
     vbox.customize ["modifyvm", :id, "--groups", "/docker-swarm"]
