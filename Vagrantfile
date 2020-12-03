@@ -2,7 +2,7 @@
 # vi: set ft=ruby shiftwidth=2:
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "bento/ubuntu-18.04"
+  config.vm.box = "bento/ubuntu-20.04"
 
   config.vm.provider "virtualbox" do |vbox|
     vbox.memory = 4000
